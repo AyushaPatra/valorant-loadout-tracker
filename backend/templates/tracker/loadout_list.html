@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body { background:#0f1923 !important; color:#e6edf3; }
+  .page-title{font-weight:800; letter-spacing:.3px;}
+  .crud-card{
+    background:#0e141a; border:1px solid #1f2631; border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35); padding:1.25rem;
+  }
+  .btn-add{
+    background:#ff4655; border:none; font-weight:700; letter-spacing:.6px;
+    box-shadow:0 0 14px rgba(255,70,85,.45);
+  }
+  .btn-add:hover{ background:#e03c49; }
+
+  /* table */
+  .table-darkish{--bs-table-bg:#11161c; --bs-table-border-color:#232c36; color:#dfe6ee;}
+  .table thead th{
+    background:#161c23; color:#8fb3ff; font-weight:800; text-transform:uppercase; font-size:.82rem;
+    border-bottom:2px solid #232c36 !important;
+  }
+  .table tbody tr{ vertical-align:middle; }
+  .table tbody tr:hover{ background:#141b22; }
+  .table td, .table th{ border-color:#232c36 !important; }
+  td {
+    color: white !important;
+  }
+
+  /* action pills */
+  .btn-pill{ border-radius:999px; padding:.28rem .7rem; font-weight:700; font-size:.8rem; }
+  .btn-edit{ background:#203447; color:#8fc8ff; border:1px solid #2b5a87; }
+  .btn-edit:hover{ background:#2b5a87; color:#e7f4ff; }
+  .btn-del{ background:#3a2426; color:#ff9aa6; border:1px solid #7a2b34; }
+  .btn-del:hover{ background:#7a2b34; color:#ffeef1; }
+
+  /* role badge */
+  .role-badge{ font-size:.75rem; font-weight:800; border-radius:999px; padding:.2rem .55rem; }
+  .role-Duelist{ background:#2a1b1d; color:#ff6b77; border:1px solid #7a2b34; }
+  .role-Sentinel{ background:#1b2624; color:#76e0c6; border:1px solid #2d6b5d; }
+  .role-Controller{ background:#1b1f2a; color:#9d9bff; border:1px solid #424089; }
+  .role-Initiator{ background:#262317; color:#ffd88a; border:1px solid #6b5a2d; }
+
+  /* pagination */
+  .pagination .page-link{
+    background:#0e141a; color:#cfd6de; border:1px solid #2a3542;
+  }
+  .pagination .page-link:hover{ background:#161c23; color:#fff; }
+  .pagination .active .page-link{ background:#ff4655; border-color:#ff4655; color:#fff; }
+
+  .page-header {
+  border-bottom: 1px solid #1f2631;
+  padding-bottom: 0.5rem;
+}
+
+.page-title {
+  color: #ffffff;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.page-subtitle {
+  color: #8a949f;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.btn-add {
+  background-color: #ff4655;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+  transition: all 0.2s ease;
+  padding: 10px 20px;
+}
+
+.btn-add:hover {
+  background-color: #e03c49;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 70, 85, 0.7);
+}
+
+
+
+</style>
+
+<div class="page-header d-flex justify-content-between align-items-center mb-4 mt-3 px-2">
+  <div>
+    <h2 class="page-title mb-0">Your Loadouts</h2>
+    <p class="page-subtitle mb-0">Manage your saved agent and weapon configurations</p>
+  </div>
+  <a href="{% url 'loadout_create' %}" class="btn btn-add btn-lg shadow">+ Add Loadout</a>
+</div>
+
+
+<div class="crud-card">
+  <div class="table-responsive">
+    <table class="table table-darkish table-hover align-middle mb-2">
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Primary</th>
+          <th>Secondary</th>
+          <th>Map</th>
+          <th>Role</th>
+          <th class="text-end" style="width:220px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for loadout in object_list %}
+        <tr>
+          <td>{{ loadout.agent.name }}</td>
+          <td>{{ loadout.primary_weapon.name }}</td>
+          <td>{{ loadout.secondary_weapon.name }}</td>
+          <td>{{ loadout.map }}</td>
+          <td>
+            <span class="role-badge role-{{ loadout.agent.role }}">{{ loadout.agent.role }}</span>
+          </td>
+          <td class="text-end">
+            <a href="{% url 'loadout_tx_update' loadout.pk %}" class="btn btn-pill btn-edit me-1">Edit</a>
+            <a href="{% url 'loadout_delete' loadout.pk %}" class="btn btn-pill btn-del">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" class="text-center text-muted py-4">No loadouts yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination justify-content-end mb-0">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">«</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">‹</a></li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">«</span></li>
+        <li class="page-item disabled"><span class="page-link">‹</span></li>
+      {% endif %}
+
+      {% for num in paginator.page_range %}
+        {% if num == page_obj.number %}
+          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% elif num > page_obj.number|add:-2 and num < page_obj.number|add:2 %}
+          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">›</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ paginator.num_pages }}">»</a></li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">›</span></li>
+        <li class="page-item disabled"><span class="page-link">»</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

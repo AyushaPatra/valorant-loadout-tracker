@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #0f1923 !important;
+    color: #ffffff !important;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  /* Page header */
+  .page-header {
+    border-bottom: 1px solid #1f2631;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .page-title {
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+  }
+
+  .page-subtitle {
+    color: #8a949f;
+    font-size: 0.9rem;
+  }
+
+  /* Chart containers */
+  .chart-card {
+    background: #0e141a;
+    border: 1px solid #1f2631;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    margin-bottom: 1.5rem;
+  }
+
+  h5 {
+    color: #8fb3ff;
+    font-weight: 700;
+    border-bottom: 1px solid #1f2631;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+
+  /* Tables */
+  .table {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+  }
+
+  .table th {
+    background-color: #161c23 !important;
+    color: #8fb3ff !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border: none !important;
+  }
+   td {
+    color: white !important;
+  }
+
+  .table td {
+    background-color: #0e141a !important;
+    border: none !important;
+  }
+
+  .table tbody tr:hover td {
+    background-color: #1a2029 !important;
+  }
+
+  /* Layout spacing */
+  .analytics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .analytics-col {
+    flex: 1;
+    min-width: 400px;
+  }
+</style>
+
+<div class="page-header">
+  <h2 class="page-title">Loadout Analytics</h2>
+  <p class="page-subtitle">Visual breakdown of your Valorant loadouts</p>
+</div>
+
+<!-- Charts -->
+<div class="analytics-row mb-4">
+  <div class="analytics-col chart-card">
+    <h5>Map Distribution</h5>
+    <canvas id="mapChart" height="150"></canvas>
+  </div>
+
+  <div class="analytics-col chart-card">
+    <h5>Most Picked Agents</h5>
+    <canvas id="agentChart" height="150"></canvas>
+  </div>
+</div>
+
+<!-- Data Tables -->
+<div class="analytics-row">
+  <div class="analytics-col chart-card">
+    <h5>Most Used Agents</h5>
+    <table class="table">
+      <thead><tr><th>Agent</th><th>Times Used</th></tr></thead>
+      <tbody>
+      {% for a in top_agents %}
+        <tr><td>{{ a.agent__name }}</td><td>{{ a.total }}</td></tr>
+      {% empty %}
+        <tr><td colspan="2" class="text-muted">No data yet.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="analytics-col chart-card">
+    <h5>Most Used Primary Weapons</h5>
+    <table class="table">
+      <thead><tr><th>Weapon</th><th>Times Used</th></tr></thead>
+      <tbody>
+      {% for w in top_weapons %}
+        <tr><td>{{ w.primary_weapon__name }}</td><td>{{ w.total }}</td></tr>
+      {% empty %}
+        <tr><td colspan="2" class="text-muted">No data yet.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const mapLabels = [{% for m in map_counts %}"{{ m.map__name }}",{% endfor %}];
+const mapData = [{% for m in map_counts %}{{ m.total }},{% endfor %}];
+const agentLabels = [{% for a in top_agents %}"{{ a.agent__name }}",{% endfor %}];
+const agentData = [{% for a in top_agents %}{{ a.total }},{% endfor %}];
+
+// Valorant colors
+const valoColors = [
+  'rgba(255, 70, 85, 0.8)',
+  'rgba(79, 128, 255, 0.8)',
+  'rgba(255, 206, 86, 0.8)',
+  'rgba(0, 180, 180, 0.8)',
+  'rgba(153, 102, 255, 0.8)'
+];
+
+// Bar Chart
+new Chart(document.getElementById('mapChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: mapLabels,
+    datasets: [{
+      label: 'Loadouts per Map',
+      data: mapData,
+      backgroundColor: valoColors,
+      borderWidth: 1,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { color: '#1f2631' },
+        ticks: { color: '#8fb3ff' }
+      },
+      x: {
+        grid: { color: '#1f2631' },
+        ticks: { color: '#8fb3ff' }
+      }
+    }
+  }
+});
+
+// Pie Chart
+new Chart(document.getElementById('agentChart').getContext('2d'), {
+  type: 'pie',
+  data: {
+    labels: agentLabels,
+    datasets: [{
+      data: agentData,
+      backgroundColor: valoColors,
+      borderColor: '#0f1923',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#ffffff' }
+      }
+    }
+  }
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #0f1923;
+    overflow: hidden; /* prevents scrolling */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: white;
+  }
+
+  .login-wrapper {
+    display: flex;
+    height: 100vh; /* fills full viewport */
+    width: 100vw;  /* removes white border */
+  }
+
+  /* Left Panel (Form) */
+  .login-left {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 3rem;
+    background: radial-gradient(1200px 500px at 40% 70%, rgba(255,70,85,.18) 0%, rgba(15,25,35,0) 60%),
+                linear-gradient(180deg,#0f1923 0%, #101820 100%);
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+
+  /* Branding */
+  .valo-logo {
+    height: 34px;
+    filter: brightness(0) invert(1);
+    opacity: .9;
+    margin: 0 0 18px;
+  }
+
+  .valo-title {
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: .5px;
+    margin: 0;
+  }
+
+  .valo-subtitle {
+    color: #ff6b77;
+    font-weight: 600;
+    margin: .5rem 0 1.5rem;
+  }
+
+  /* Inputs (Riot Style) */
+  .input-dark {
+    height: 48px;
+    border-radius: 8px;
+    background: #0e141a;
+    border: 1px solid #1f2631;
+    color: #fff;
+    padding: 12px 14px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    width: 100%;
+  }
+
+  .input-dark::placeholder {
+    color: #8a949f;
+  }
+
+  .input-dark:focus {
+    border-color: #ff4655;
+    box-shadow: 0 0 0 .25rem rgba(255,70,85,.25);
+    background-color: #121922;
+  }
+
+  /* Remove browser red/blue outlines */
+  input:focus,
+  input:active,
+  input:valid,
+  input:invalid {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Button */
+  .btn-login {
+    height: 52px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: #ff4655;
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(255,70,85,.35);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .btn-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(255,70,85,.55);
+    background: #e03c49;
+  }
+
+  /* Button arrow */
+  .btn-arrow {
+    padding-right: 56px;
+  }
+
+  .btn-arrow::after {
+    content: "→";
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #2a313a;
+  }
+
+  .divider span {
+    font-size: 12px;
+    color: #8a949f;
+    background: #0f1923;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* Providers */
+  .providers {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .provider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: #0e141a;
+    border: 1px solid #1f2631;
+    color: #dfe6ee;
+    font-weight: 700;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+
+  .provider:hover {
+    transform: translateY(-1px);
+    background: #121922;
+    border-color: #2b3441;
+  }
+
+  .provider img {
+    height: 22px;
+  }
+
+  .provider span {
+    font-size: 14px;
+  }
+
+  /* Help Line */
+  .help-line {
+    margin: 0;
+    text-align: center;
+    font-weight: 800;
+    color: #ffd94d;
+  }
+
+  .help-line .link {
+    color: #ffd94d;
+    text-decoration: none;
+  }
+
+  .help-line .link:hover {
+    text-decoration: underline;
+  }
+
+  .help-line .sep {
+    opacity: .8;
+    margin: 0 .4rem;
+  }
+
+  /* Right Panel (Artwork) */
+  .login-right {
+    width: 60%;
+    background: url("{% static 'images/valo3.webp' %}") center center / cover no-repeat;
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .login-right {
+      display: none;
+    }
+    .login-left {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .valo-title {
+      font-size: 34px;
+    }
+    .valo-subtitle {
+      font-size: .9rem;
+    }
+  }
+
+/* --- FORCE consistent dark input color --- */
+
+/* Base look */
+.input-dark {
+  background-color: #0e141a !important;
+  color: #ffffff !important;
+  border: 1px solid #1f2631 !important;
+  transition: background-color 0s ease !important;
+}
+
+/* Focus glow */
+.input-dark:focus {
+  background-color: #121922 !important;
+  border-color: #ff4655 !important;
+  box-shadow: 0 0 8px rgba(255,70,85,0.4) !important;
+}
+
+/* Fix Chrome/Edge autofill flash */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0e141a inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 0s ease-in-out 9999s;
+}
+
+/* Disable weird white highlight on blur */
+input:-internal-autofill-selected {
+  background-color: #0e141a !important;
+  color: #ffffff !important;
+}
+
+/* Disable any native focus ring */
+input:focus-visible {
+  outline: none !important;
+}
+
+</style>
+
+
+
+<div class="login-wrapper">
+  <div class="login-left">
+    <div class="login-box">
+
+  <h1 class="valo-title">SIGN IN</h1>
+  <p class="valo-subtitle">Use your Valorant Loadout Tracker account to continue</p>
+
+  <form method="post" class="valo-form">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" name="username" class="form-control input-dark"
+             placeholder="USERNAME" autocomplete="username" required>
+    </div>
+    <div class="mb-3">
+      <input type="password" name="password" class="form-control input-dark"
+             placeholder="PASSWORD" autocomplete="current-password" required>
+    </div>
+
+    {% if form.errors %}
+      <div class="alert alert-danger py-2 mb-2">Invalid username or password.</div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-login btn-arrow">PROCEED TO TRACKER</button>
+  </form>
+
+  <div class="divider">
+    <span>OR</span>
+  </div>
+
+  <div class="providers">
+    <button type="button" class="provider">
+      <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google"><span>Google</span>
+    </button>
+    <button type="button" class="provider">
+      <img src="https://img.icons8.com/color/48/xbox.png" alt="Xbox"><span>Xbox</span>
+    </button>
+    <button type="button" class="provider">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/mac-os.png" alt="Apple"><span>Apple</span>
+    </button>
+  </div>
+
+  <p class="help-line">
+    <a href="#" class="link">Can’t log in?</a> <span class="sep">|</span>
+    <a href="/accounts/signup/" class="link">Create an account</a>
+  </p>
+</div>
+
+  </div>
+
+  <div class="login-right"></div>
+</div>
+{% endblock %}

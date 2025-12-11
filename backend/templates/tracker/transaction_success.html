@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #0f1923 !important;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  .success-card {
+    background: #0e141a;
+    border: 1px solid #1f2631;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 3rem auto;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  .success-title {
+    color: #4caf50;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .success-text {
+    color: #dfe6ee;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-back {
+    background-color: #ff4655;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 250px;
+    padding: 12px;
+    color: #fff !important;
+    text-decoration: none !important; /* no underline */
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .btn-back:hover {
+    background-color: #e03c49;
+    box-shadow: 0 0 25px rgba(255,70,85,0.8);
+    transform: translateY(-1px);
+    color: #fff !important;
+    text-decoration: none !important;
+  }
+</style>
+
+<div class="success-card">
+  <h2 class="success-title">Transaction Successful</h2>
+
+  <p class="success-text">
+    Your loadout was updated inside a <strong>transaction.atomic()</strong> block.
+  </p>
+
+  <a href="{% url 'loadout_list' %}" class="btn-back">Back to Loadouts</a>
+</div>
+
+{% endblock %}

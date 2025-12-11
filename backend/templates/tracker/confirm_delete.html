@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #0f1923 !important;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  /* Page Header */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid #1f2631;
+    padding-bottom: 0.5rem;
+  }
+
+  .page-title {
+    color: #ff4655;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  .page-subtitle {
+    color: #8a949f;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+
+  /* Card Container */
+  .confirm-card {
+    background: #0e141a;
+    border: 1px solid #1f2631;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Text */
+  .confirm-card h4 {
+    color: #ff4655;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .confirm-card p {
+    color: #dfe6ee;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Buttons */
+  .btn-delete {
+    background-color: #ff4655;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+    transition: all 0.2s ease;
+    padding: 10px 18px;
+    color: #fff;
+  }
+
+  .btn-delete:hover {
+    background-color: #e03c49;
+    box-shadow: 0 0 25px rgba(255,70,85,0.8);
+    transform: translateY(-1px);
+  }
+
+  .btn-cancel {
+    border: 1px solid #5a6268;
+    color: #dfe6ee;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 600;
+    margin-left: 10px;
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .btn-cancel:hover {
+    background-color: #5a6268;
+    color: #fff;
+  }
+</style>
+
+<div class="page-header">
+  <div>
+    <h2 class="page-title">Delete Loadout</h2>
+    <p class="page-subtitle">Are you sure you want to delete this loadout? This action cannot be undone.</p>
+  </div>
+</div>
+
+<div class="confirm-card">
+  <h4>Confirm Deletion</h4>
+  <p>Once deleted, this loadout will be permanently removed from your account.</p>
+
+  <form method="post" class="mt-3">
+    {% csrf_token %}
+    <button class="btn btn-delete" type="submit">Delete</button>
+    <a class="btn btn-cancel" href="{% url 'loadout_list' %}">Cancel</a>
+  </form>
+</div>
+
+{% endblock %}

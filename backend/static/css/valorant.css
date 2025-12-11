@@ -1,0 +1,161 @@
+/* Background and global */
+body {
+    background-color: #0b1221;
+    color: #e6e6e6;
+    font-family: "Inter", sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    background-color: #0e182e;
+    border-bottom: 2px solid #ff3e52;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #b9c1d9;
+    margin-left: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+}
+
+.nav-links a.active {
+    color: #ff3e52;
+    border-bottom: 2px solid #ff3e52;
+}
+
+.btn-signout {
+    background-color: #ff3e52;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 12px rgba(255, 62, 82, 0.6);
+}
+
+/* Page header */
+.page-header {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.page-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.page-subtitle {
+    color: #8293b5;
+    margin-bottom: 1.5rem;
+}
+
+/* Add Loadout button */
+.btn-add {
+    background-color: #ff4655;
+    padding: 0.8rem 1.6rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(255, 70, 85, .5);
+    color: #fff !important;
+}
+
+/* Table container (glass panel) */
+.table-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px);
+    border: 1px solid #1f2a40;
+    border-radius: 16px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+/* Table */
+.v-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.v-table thead th {
+    color: #8ca4d4;
+    padding: 0.8rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.v-table tbody td {
+    padding: 1rem 0.8rem;
+    border-top: 1px solid #1f2a40;
+    font-weight: 500;
+}
+
+/* Role badges */
+.role-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: white;
+}
+
+.role-duelist { background-color: #b6222d; }
+.role-sentinel { background-color: #0f8b6e; }
+.role-controller { background-color: #553ea6; }
+.role-initiator { background-color: #c48a14; }
+
+/* Action buttons */
+.btn-edit, .btn-delete {
+    padding: 0.35rem 0.9rem;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-edit {
+    background-color: rgba(80, 140, 255, 0.15);
+    color: #5fa8ff;
+}
+
+.btn-delete {
+    background-color: rgba(255, 70, 85, 0.15);
+    color: #ff4655;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.page-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 40px;
+    background-color: #1b2436;
+    color: #b9c1d9;
+}
+
+.page-btn.active {
+    background-color: #ff4655;
+    color: white;
+    box-shadow: 0 0 12px rgba(255, 70, 85, .5);
+}

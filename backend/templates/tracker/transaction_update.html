@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #0f1923 !important;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  /* Header */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid #1f2631;
+    padding-bottom: 0.5rem;
+  }
+
+  .page-title {
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  .page-subtitle {
+    color: #8a949f;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+
+  /* Form Container */
+  .form-card {
+    background: #0e141a;
+    border: 1px solid #1f2631;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    padding: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .form-control, select {
+    background-color: #151b22 !important;
+    border: 1px solid #232c36 !important;
+    color: #fff !important;
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+
+  .form-control:focus, select:focus {
+    background-color: #1c232d !important;
+    border-color: #ff4655 !important;
+    box-shadow: 0 0 0.25rem rgba(255,70,85,0.4) !important;
+    color: #fff !important;
+  }
+
+  label {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #8fb3ff;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0.6rem;
+  }
+
+  /* Save Button */
+  .btn-save {
+    background-color: #ff4655;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+    transition: all 0.2s ease;
+    padding: 12px;
+    color: #fff;
+    margin-top: 1.2rem;
+  }
+
+  .btn-save:hover {
+    background-color: #e03c49;
+    box-shadow: 0 0 25px rgba(255,70,85,0.8);
+    transform: translateY(-1px);
+  }
+
+  .force-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #151b22;
+    border: 1px solid #232c36;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="page-header">
+  <div>
+    <h2 class="page-title">Edit Loadout</h2>
+  </div>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    {% csrf_token %}
+
+    <!-- Agent -->
+    <label for="id_agent">Agent</label>
+    <select name="agent" id="id_agent" class="form-control">
+      {% for a in agents %}
+        <option value="{{ a.id }}" {% if a.id == loadout.agent.id %}selected{% endif %}>
+          {{ a.name }} ({{ a.role }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Primary weapon -->
+    <label for="id_primary_weapon">Primary Weapon</label>
+    <select name="primary_weapon" id="id_primary_weapon" class="form-control">
+      {% for w in primary_weapons %}
+        <option value="{{ w.id }}" {% if w.id == loadout.primary_weapon.id %}selected{% endif %}>
+          {{ w.name }} ({{ w.type }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Secondary weapon -->
+    <label for="id_secondary_weapon">Secondary Weapon</label>
+    <select name="secondary_weapon" id="id_secondary_weapon" class="form-control">
+      {% for w in secondary_weapons %}
+        <option value="{{ w.id }}" {% if w.id == loadout.secondary_weapon.id %}selected{% endif %}>
+          {{ w.name }} ({{ w.type }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Skin -->
+    <label for="id_skin">Skin</label>
+    <select name="skin" id="id_skin" class="form-control">
+      <option value="" {% if not loadout.skin %}selected{% endif %}>No skin</option>
+      {% for s in skins %}
+        <option value="{{ s.id }}" {% if loadout.skin and s.id == loadout.skin.id %}selected{% endif %}>
+          {{ s.name }} - {{ s.weapon.name }} ({{ s.rarity }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Map -->
+    <label for="id_map">Map</label>
+    <select name="map" id="id_map" class="form-control">
+      {% for m in maps %}
+        <option value="{{ m.id }}" {% if m.id == loadout.map.id %}selected{% endif %}>
+          {{ m.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Force error (rollback demo) -->
+    <div class="force-box">
+      <label style="cursor:pointer; color:#ffdd57;">
+        <input type="checkbox" name="force_error">
+        <span class="ms-2 fw-bold">Force Error (Rollback Demo)</span>
+      </label>
+      <p class="mt-2" style="font-size:0.85rem;">
+        If this is checked, the view will raise an exception inside
+        <strong>transaction.atomic()</strong> so we can see that no changes are saved.
+      </p>
+    </div>
+
+    <button type="submit" class="btn btn-save mt-3">
+      Save
+    </button>
+  </form>
+</div>
+
+{% endblock %}

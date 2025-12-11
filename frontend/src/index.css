@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Valorant Dark Theme */
+    --background: 210 30% 8%;
+    --foreground: 210 20% 92%;
+
+    --card: 210 28% 7%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 210 28% 7%;
+    --popover-foreground: 210 20% 92%;
+
+    /* Valorant Red */
+    --primary: 355 100% 63%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Deep Navy */
+    --secondary: 210 25% 12%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 210 22% 15%;
+    --muted-foreground: 210 15% 55%;
+
+    /* Cyan Accent */
+    --accent: 185 100% 50%;
+    --accent-foreground: 210 30% 8%;
+
+    --destructive: 355 100% 63%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success Green */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 210 20% 18%;
+    --input: 210 22% 12%;
+    --ring: 355 100% 63%;
+
+    --radius: 0.75rem;
+
+    /* Custom Valorant Colors */
+    --valorant-red: 355 100% 63%;
+    --valorant-dark: 210 30% 8%;
+    --valorant-navy: 210 25% 10%;
+    --valorant-cyan: 185 100% 50%;
+    --valorant-blue: 215 80% 70%;
+    --valorant-border: 210 20% 18%;
+
+    /* Glow Effects */
+    --glow-red: 0 0 30px hsla(355, 100%, 63%, 0.5);
+    --glow-cyan: 0 0 30px hsla(185, 100%, 50%, 0.4);
+    --glow-blue: 0 0 20px hsla(215, 80%, 70%, 0.3);
+
+    /* Role Colors */
+    --role-duelist: 355 70% 65%;
+    --role-sentinel: 160 60% 50%;
+    --role-controller: 250 60% 70%;
+    --role-initiator: 40 80% 60%;
+
+    --sidebar-background: 210 28% 7%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 355 100% 63%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 22% 15%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 210 20% 18%;
+    --sidebar-ring: 355 100% 63%;
+  }
+
+  .dark {
+    --background: 210 30% 8%;
+    --foreground: 210 20% 92%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Rajdhani', sans-serif;
+  }
+}
+
+@layer components {
+  /* Glassy Panel Effect */
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-md border border-border rounded-xl;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Neon Glow Button */
+  .btn-glow {
+    @apply relative overflow-hidden transition-all duration-300;
+    box-shadow: 0 0 20px hsla(355, 100%, 63%, 0.4);
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 35px hsla(355, 100%, 63%, 0.6), 0 0 60px hsla(355, 100%, 63%, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Cyan Glow Effect */
+  .glow-cyan {
+    box-shadow: 0 0 20px hsla(185, 100%, 50%, 0.3);
+  }
+
+  /* Role Badges */
+  .role-duelist {
+    @apply bg-red-900/30 text-red-400 border border-red-700/50;
+  }
+
+  .role-sentinel {
+    @apply bg-emerald-900/30 text-emerald-400 border border-emerald-700/50;
+  }
+
+  .role-controller {
+    @apply bg-violet-900/30 text-violet-400 border border-violet-700/50;
+  }
+
+  .role-initiator {
+    @apply bg-amber-900/30 text-amber-400 border border-amber-700/50;
+  }
+
+  /* Interactive Table Row */
+  .table-row-interactive {
+    @apply transition-all duration-200;
+  }
+
+  .table-row-interactive:hover {
+    @apply bg-secondary/60;
+    box-shadow: inset 0 0 30px rgba(255, 70, 85, 0.05);
+  }
+
+  /* Input Focus Glow */
+  .input-glow:focus {
+    box-shadow: 0 0 0 3px hsla(355, 100%, 63%, 0.2), 0 0 20px hsla(355, 100%, 63%, 0.15);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+
+  /* Animated Underline */
+  .animated-underline {
+    @apply relative;
+  }
+
+  .animated-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .animated-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  /* Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsla(355, 100%, 63%, 0.4); }
+    50% { box-shadow: 0 0 40px hsla(355, 100%, 63%, 0.6); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scale-in {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slide-in-left {
+    0% { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.4s ease-out forwards;
+  }
+
+  /* Delay utilities */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+}
