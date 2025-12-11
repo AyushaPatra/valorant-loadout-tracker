@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
 ]
 
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -45,19 +46,22 @@ CORS_ALLOW_ALL_ORIGINS = False
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://localhost:8080",
+    "https://valorant-loadout-tracker.vercel.app",
+    "https://*.vercel.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://localhost:8080",
+     "https://valorant-loadout-tracker.vercel.app",
 ]
 
 
 SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SAMESITE = None
 
-SESSION_COOKIE_SECURE = False  # True in production
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True  
+CSRF_COOKIE_SECURE = True
 
 
 
