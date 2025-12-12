@@ -9,23 +9,86 @@ import { RoleBadge } from "@/components/loadout/RoleBadge";
 
 import apiClient from "@/api/apiClient";
 
-import Jett from "@/assets/agents/Jett.png";
-
-import Pearl from "@/assets/maps/Pearl.jpg";
-
 import LoadoutsBG from "@/assets/loadout-bg.png";
 
+import Astra from "@/assets/agents/Astra.png";
+import Breach from "@/assets/agents/Breach.png";
+import Brimstone from "@/assets/agents/Brimstone.png";
+import Chamber from "@/assets/agents/Chamber.png";
+import Clove from "@/assets/agents/Clove.png";
+import Cypher from "@/assets/agents/Cypher.png";
+import Deadlock from "@/assets/agents/Deadlock.png";
+import Fade from "@/assets/agents/Fade.png";
+import Gekko from "@/assets/agents/Gekko.png";
+import Harbor from "@/assets/agents/Harbor.png";
+import Iso from "@/assets/agents/Iso.png";
+import Jett from "@/assets/agents/Jett.png";
+import Kayo from "@/assets/agents/Kayo.png";
+import Killjoy from "@/assets/agents/Killjoy.png";
+import Neon from "@/assets/agents/Neon.png";
+import Omen from "@/assets/agents/Omen.png";
+import Phoenix from "@/assets/agents/Phoenix.png";
+import Raze from "@/assets/agents/Raze.png";
+import Reyna from "@/assets/agents/Reyna.png";
+import Sage from "@/assets/agents/Sage.png";
+import Skye from "@/assets/agents/Skye.png";
+import Sova from "@/assets/agents/Sova.png";
+import Tejo from "@/assets/agents/Tejo.png";
+import Veto from "@/assets/agents/Veto.png";
+import Viper from "@/assets/agents/Viper.png";
+import Vyse from "@/assets/agents/Vyse.png";
+import Waylay from "@/assets/agents/Waylay.png";
+import Yoru from "@/assets/agents/Yoru.png";
 
-const agentImages: Record<string, string> = {
+export const agentImages: Record<string, string> = {
+  Astra,
+  Breach,
+  Brimstone,
+  Chamber,
+  Clove,
+  Cypher,
+  Deadlock,
+  Fade,
+  Gekko,
+  Harbor,
+  Iso,
   Jett,
-  // Sova,
-  // Omen,
+  Kayo,
+  Killjoy,
+  Neon,
+  Omen,
+  Phoenix,
+  Raze,
+  Reyna,
+  Sage,
+  Skye,
+  Sova,
+  Tejo,
+  Veto,
+  Viper,
+  Vyse,
+  Waylay,
+  Yoru,
 };
 
-const mapImages: Record<string, string> = {
+import Abyss from "@/assets/maps/Abyss.png";
+import Ascent from "@/assets/maps/Ascent.png";
+import Bind from "@/assets/maps/Bind.png";
+import Breeze from "@/assets/maps/Breeze.png";
+import Icebox from "@/assets/maps/Icebox.png";
+import Lotus from "@/assets/maps/Lotus.png";
+import Pearl from "@/assets/maps/Pearl.jpg"; // special case: this one is JPG
+import Sunset from "@/assets/maps/Sunset.png";
+
+export const mapImages: Record<string, string> = {
+  Abyss,
+  Ascent,
+  Bind,
+  Breeze,
+  Icebox,
+  Lotus,
   Pearl,
-  // Breeze,
-  // Icebox,
+  Sunset,
 };
 
 

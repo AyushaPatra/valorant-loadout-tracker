@@ -11,6 +11,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+// Highlight helper for searching
+
+function highlight(text: string, term: string) {
+  if (!term) return text;
+  const regex = new RegExp(`(${term})`, "gi");
+  return text.replace(regex, "<mark class='bg-yellow-500/50'>$1</mark>");
+}
+
 export interface Loadout {
   id: number;
   agent: string;
@@ -23,9 +31,10 @@ export interface Loadout {
 
 interface LoadoutTableProps {
   loadouts: Loadout[];
+  searchTerm?: string; 
 }
 
-export function LoadoutTable({ loadouts }: LoadoutTableProps) {
+export function LoadoutTable({ loadouts, searchTerm = ""  }: LoadoutTableProps) {
   return (
     <div className="glass-panel overflow-hidden">
       <div className="overflow-x-auto">
@@ -48,14 +57,50 @@ export function LoadoutTable({ loadouts }: LoadoutTableProps) {
                 className="table-row-interactive border-border animate-fade-in-up"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <TableCell className="font-semibold text-foreground">{loadout.agent}</TableCell>
+                {/* AGENT */}
+                <TableCell
+                  className="font-semibold text-foreground"
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(loadout.agent, searchTerm),
+                  }}
+                />
+
+                {/* ROLE */}
                 <TableCell>
                   <RoleBadge role={loadout.role} />
                 </TableCell>
-                <TableCell className="text-muted-foreground">{loadout.primary}</TableCell>
-                <TableCell className="text-muted-foreground">{loadout.sidearm}</TableCell>
-                <TableCell className="text-muted-foreground">{loadout.skin}</TableCell>
-                <TableCell className="text-muted-foreground">{loadout.map}</TableCell>
+
+                {/* PRIMARY */}
+                <TableCell
+                  className="text-muted-foreground"
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(loadout.primary, searchTerm),
+                  }}
+                />
+
+                {/* SIDEARM */}
+                <TableCell
+                  className="text-muted-foreground"
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(loadout.sidearm, searchTerm),
+                  }}
+                />
+
+                {/* SKIN */}
+                <TableCell
+                  className="text-muted-foreground"
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(loadout.skin, searchTerm),
+                  }}
+                />
+
+                {/* MAP */}
+                <TableCell
+                  className="text-muted-foreground"
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(loadout.map, searchTerm),
+                  }}
+                />
                 <TableCell>
                   <div className="flex items-center justify-end gap-2">
                     <Button variant="edit" size="pill" asChild>
