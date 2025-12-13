@@ -26,7 +26,7 @@ export default function TransactionSuccess() {
           
 
           <Button variant="default" size="lg" asChild className="animate-fade-in-up delay-300">
-            <Link to="/">
+            <Link to="/loadouts">
               <ArrowLeft className="w-4 h-4" />
               Back to Loadouts
             </Link>

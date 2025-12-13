@@ -93,7 +93,7 @@ export default function LoadoutForm() {
         await createLoadout(payload);
         toast({ title: "Loadout Created", description: "Your loadout was created successfully." });
       }
-      navigate("/");
+      navigate("/loadouts");
     } catch {
       toast({ title: "Error", description: "Unable to save loadout.", variant: "destructive" });
     }

@@ -21,7 +21,7 @@ export default function ConfirmDelete() {
       variant: "destructive",
     });
 
-    navigate("/");                       // Go back to homepage
+    navigate("/loadouts");                       // Go back to homepage
   } catch (err) {
     toast({
       title: "Error",
@@ -72,7 +72,7 @@ export default function ConfirmDelete() {
               asChild
               className="order-1 sm:order-2"
             >
-              <Link to="/">
+              <Link to="/loadouts">
                 <ArrowLeft className="w-4 h-4" />
                 Cancel
               </Link>

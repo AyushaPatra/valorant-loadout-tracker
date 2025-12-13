@@ -24,19 +24,30 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route path="/loadout/new" element={<LoadoutForm />} />
-          <Route path="/loadout/:id/edit" element={<LoadoutForm />} />
-          <Route path="/loadout/:id/delete" element={<ConfirmDelete />} />
-          <Route path="/loadout/:id/transaction" element={<TransactionUpdate />} />
-          <Route path="/transaction/success" element={<TransactionSuccess />} />
-          <Route path="/transaction/fail" element={<TransactionFail />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/register/success" element={<RegisterSuccess />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* MAIN PAGE */}
+        <Route path="/loadouts" element={<LoadoutList />} />
+
+        {/* LOADOUT CRUD */}
+        <Route path="/loadout/new" element={<LoadoutForm />} />
+        <Route path="/loadout/:id/edit" element={<LoadoutForm />} />
+        <Route path="/loadout/:id/delete" element={<ConfirmDelete />} />
+        <Route path="/loadout/:id/transaction" element={<TransactionUpdate />} />
+
+        {/* TRANSACTIONS */}
+        <Route path="/transaction/success" element={<TransactionSuccess />} />
+        <Route path="/transaction/fail" element={<TransactionFail />} />
+
+        {/* OTHER PAGES */}
+        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/register/success" element={<RegisterSuccess />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
