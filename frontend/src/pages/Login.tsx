@@ -36,7 +36,7 @@ export default function Login() {
       description: "Welcome back.",
     });
 
-    navigate("/");
+    navigate("/loadouts");
   } catch (error) {
     toast({
       title: "Login failed",

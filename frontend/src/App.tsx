@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoadoutList from "./pages/LoadoutList";
 import LoadoutForm from "./pages/LoadoutForm";
 import ConfirmDelete from "./pages/ConfirmDelete";
@@ -24,7 +24,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoadoutList />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/loadout/new" element={<LoadoutForm />} />
           <Route path="/loadout/:id/edit" element={<LoadoutForm />} />
           <Route path="/loadout/:id/delete" element={<ConfirmDelete />} />
